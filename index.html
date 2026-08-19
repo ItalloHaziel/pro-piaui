@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pró-Piauí — Consolidação de Investimentos 2023–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,460;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="js/vendor/chart.min.js"></script>
+</head>
+<body>
+
+<div id="load-overlay">
+  <div class="spinner"></div>
+  <div class="msg" id="load-msg">Carregando dados direto do Google Sheets…</div>
+  <button class="retry-btn hidden" id="retry-btn" onclick="bootstrapData()">Tentar novamente</button>
+</div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>Pró-Piauí</div>
+    <div class="navlinks">
+      <a href="#painel">Painel Geral </a>
+      <a href="#contexto">Macro</a>
+      <a href="#visao-geral">Áreas focais</a>
+      <a href="#pavimentacao">Pavimentação</a>
+      <a href="#educacao">Educação</a>
+      <a href="#saude">Saúde</a>
+      <a href="#seguranca">Segurança</a>
+      <a href="#metodologia">Metodologia</a>
+    </div>
+    <div id="data-status">
+      <span id="data-status-text">–</span>
+      <button onclick="location.reload()">↻ Atualizar dados</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= PAINEL POWER BI ================= -->
+<section id="painel" class="rel">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Painel interativo</div>
+        <h2>Painel Pró-Piauí</h2>
+      </div>
+    </div>
+
+    <div class="powerbi-frame-wrap">
+      <iframe
+        title="Painel Pró-Piauí"
+        src="https://app.powerbi.com/view?r=eyJrIjoiODA5MTFmYjAtYjcwYS00MmRhLWJjOWMtNzMzZDZkYjI4Zjk5IiwidCI6IjI0ZGIwOWQ3LTI5MTctNGYzZC04YTUyLTM0YjFiMWIyYTM1OSJ9&pageName=9b325f28e1e4f7683adc"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <div class="eyebrow">Consolidação orçamentária · Exercícios 2023–2026</div>
+        <h1>Para onde foi o investimento do <em>Piauí</em> em Pavimentação, Educação, Saúde e Segurança.</h1>
+        <p class="hero-sub">Um raio-x de cada real empenhado nas quatro frentes mais visíveis da gestão pública estadual — cruzando unidades gestoras, contratos e categorias de aplicação, empenho a empenho. Pavimentação (item 1.1 do programa) é a maior fatia isolada: sozinha, responde por mais da metade de tudo que está aqui.</p>
+      </div>
+      <div class="stamp">
+        <div class="k">Nota de consolidação</div>
+        <div class="v" id="stamp-date">Piauí · PI</div>
+        <div class="k" style="margin-top:10px;">Fonte</div>
+        <div class="v" style="font-size:12px;">SIAFE / Execução Orçamentária</div>
+      </div>
+    </div>
+
+    <div class="hero-figure">
+      <div class="big-number"><span class="cifrao">R$</span><span id="hero-total">–</span></div>
+      <div class="big-number-label">empenhados entre 2023 e 2026 somando Pavimentação, Educação, Saúde e Segurança — o equivalente ao orçamento consolidado do período em malha viária, obras, equipamentos, reformas, tecnologia e frotas.</div>
+    </div>
+
+    <div class="ledger-strip">
+      <div><div class="n" id="k-ug">–</div><div class="l">Unidades gestoras</div></div>
+      <div><div class="n" id="k-contratos">–</div><div class="l">Contratos identificados</div></div>
+      <div><div class="n" id="k-registros">–</div><div class="l">Linhas de empenho</div></div>
+      <div><div class="n">4</div><div class="l">Áreas comparadas</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= CONTEXTO PRÓ-PIAUÍ 10 ================= -->
+<section id="contexto" class="dark-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Programa estadual · Pró-Piauí 10</div>
+        <h2>O recorte de Educação, Saúde e Segurança dentro da meta maior do estado.</h2>
+      </div>
+      <div class="meta-badge">
+        <div class="k">Meta do programa</div>
+        <div class="v">R$ 10 bi</div>
+        <div class="s">em recursos públicos até o final de 2026</div>
+      </div>
+    </div>
+    <p class="lede">O Pró-Piauí 10 organiza o investimento estadual em três eixos — Infraestrutura, Transformação Social e Desenvolvimento Econômico. As áreas aprofundadas nesta página (Educação, Saúde e Segurança) atravessam esses eixos e já somam <strong>R$ 1,42 bi</strong> em empenho, dentro de um total geral empenhado de <strong>R$ 11,65 bi</strong> — 116,5% da meta do programa.</p>
+
+    <div class="eixo-table" id="eixo-table"></div>
+    <div class="total-band" id="total-band"></div>
+
+    <div class="chart-title" style="margin-top:44px;color:#9FB0C2;">Principais fontes de financiamento do programa</div>
+    <div class="fonte-grid" id="fonte-grid"></div>
+
+    <div class="chart-title" style="margin-top:44px;color:#9FB0C2;">Empenho por território de desenvolvimento — programa Pró-Piauí 10 completo, todos os eixos</div>
+    <div class="terr-table" id="terr-table"></div>
+
+    <div class="link-note">Esta consolidação de Educação, Saúde e Segurança é um corte por área de política pública — não corresponde diretamente à divisão por eixo acima, já que obras, reformas e equipamentos dessas três áreas podem ser contabilizados em mais de um eixo do programa.</div>
+  </div>
+</section>
+
+<!-- ================= VISÃO GERAL ================= -->
+<section id="visao-geral" class="rel">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Panorama</div>
+        <h2>Quatro áreas, uma mesma prioridade orçamentária — e um peso muito desigual entre elas.</h2>
+      </div>
+      <div class="section-total">
+        <div class="v" id="ov-total">–</div>
+        <div class="l">Total consolidado</div>
+      </div>
+    </div>
+    <p class="lede">Pavimentação é, de longe, a maior frente: sozinha soma mais do que Educação, Saúde e Segurança juntas. Entre essas três, a Segurança concentra o maior volume, seguida de perto pela Saúde — puxada por reformas e obras em unidades. A Educação, com o menor total entre as quatro, tem o perfil mais concentrado: uma única unidade gestora responde pela quase totalidade dos recursos.</p>
+
+    <div class="area-cards" id="area-cards"></div>
+
+    <div class="chart-card" style="margin-top:40px;">
+      <div class="chart-title">Quanto cada área concentra do total consolidado</div>
+      <div class="chart-wrap" style="height:260px;"><canvas id="chart-ranking"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Mesma categoria, gestão diferente — comparativo entre Educação, Saúde e Segurança</div>
+      <div class="chart-wrap" style="height:400px;"><canvas id="chart-comparativo"></canvas></div>
+      <p style="font-size:12.5px;color:var(--ink-faint);margin-top:14px;font-family:'IBM Plex Mono',monospace;">* categorias "Reforma" e "Reforma de Unidade" foram unificadas para permitir a comparação entre áreas. Pavimentação usa uma classificação própria (tipo de pavimento) e por isso é comparada separadamente, na sua seção — mas entra no ranking acima e nos totais gerais do topo da página.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PAVIMENTAÇÃO ================= -->
+<section id="pavimentacao" class="rel">
+  <div class="wrap">
+    <div class="section-label-index">01</div>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Item 1.1 · Mobilidade Urbana e Urbanização</div>
+        <h2>A maior frente de investimento do programa começa aqui — pavimentação e malha viária em todo o estado.</h2>
+      </div>
+      <div class="section-total"><div class="v" id="pav-total">–</div><div class="l">empenhado no período</div></div>
+    </div>
+    <p class="lede">Pavimentação é o item 1.1 do Pró-Piauí 10 e, isolada, é maior do que Educação, Saúde e Segurança somadas — por isso abre esta consolidação. A base que a descreve é diferente das outras três: não traz exercício nem valores liquidado/pago por linha, por isso é apresentada com sua própria estrutura, com <strong>R$&nbsp;6,02&nbsp;bi</strong> empenhados em <strong id="pav-registros">–</strong> registros, distribuídos entre <strong id="pav-ug">–</strong> unidades gestoras. Pavimento asfáltico concentra a maior fatia do valor; paralelepípedo, o maior número de obras.</p>
+
+    <div class="delivery-grid" id="pav-delivery"></div>
+
+    <div class="chart-title" style="margin-top:44px;">Empenhado por tipo de pavimento</div>
+    <div class="pav-list" id="pav-tipo-list"></div>
+
+    <div class="chart-title" style="margin-top:44px;">Empenhado por território de desenvolvimento — apenas Pavimentação</div>
+    <div class="pav-list" id="pav-terr-list"></div>
+
+    <div class="chart-title" style="margin-top:44px;">Maiores contratos identificados</div>
+    <div class="ledger-list" id="pav-contracts"></div>
+  </div>
+</section>
+
+<!-- ================= EDUCAÇÃO ================= -->
+<section id="educacao" class="rel">
+  <div class="wrap">
+    <div class="section-label-index">02</div>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Área 2.3 · Educação</div>
+        <h2>Concentrada em uma única unidade — e dominada por itens ainda sem contrato vinculado.</h2>
+      </div>
+      <div class="section-total"><div class="v" id="edu-total">–</div><div class="l">empenhado no período</div></div>
+    </div>
+    <p class="lede">De cada <strong>R$ 10</strong> empenhados em Educação, mais de <strong>R$ 9</strong> passam pelos <strong>Recursos para Desenvolvimento da Educação Básica</strong> — a unidade gestora aparece sozinha à frente de universidade estadual e instituto de desenvolvimento. É também a área com a maior fatia classificada como "sem contrato": ar-condicionado, mediação tecnológica e outros repasses diretos às escolas.</p>
+
+    <div class="delivery-grid" id="edu-delivery"></div>
+
+    <div class="chart-grid" style="grid-template-columns:1fr;max-width:640px;">
+      <div class="chart-card">
+        <div class="chart-title">Empenhado por categoria</div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="chart-edu-cat"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout">"Aparelhos de ar-condicionado para escolas da rede pública estadual" somam sozinhos mais de R$ 56 milhões em duas linhas de empenho distintas.</div>
+
+    <div class="chart-title" style="margin-top:44px;">Maiores contratos identificados</div>
+    <div class="ledger-list" id="edu-contracts"></div>
+  </div>
+</section>
+
+<!-- ================= SAÚDE ================= -->
+<section id="saude" class="rel">
+  <div class="wrap">
+    <div class="section-label-index">03</div>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Área 2.2 · Saúde</div>
+        <h2>Metade do orçamento vai para manter o que já existe de pé.</h2>
+      </div>
+      <div class="section-total"><div class="v" id="sau-total">–</div><div class="l">empenhado no período</div></div>
+    </div>
+    <p class="lede">Reforma é, disparado, a categoria mais pesada da Saúde — mais que o dobro do que soma Obra, a segunda colocada. O <strong>Fundo de Saúde do Estado do Piauí</strong> concentra sozinho quase 90% de tudo que foi empenhado na área, à frente da Secretaria Estadual de Saúde.</p>
+
+    <div class="delivery-grid" id="sau-delivery"></div>
+
+    <div class="chart-grid" style="grid-template-columns:1fr;max-width:640px;">
+      <div class="chart-card">
+        <div class="chart-title">Empenhado por categoria</div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="chart-sau-cat"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout">Manutenção predial e reparos preventivos somam mais de R$ 220 milhões em contratos recorrentes — o equivalente a quase 3 novas obras de grande porte.</div>
+
+    <div class="chart-title" style="margin-top:44px;">Maiores contratos identificados</div>
+    <div class="ledger-list" id="sau-contracts"></div>
+  </div>
+</section>
+
+<!-- ================= SEGURANÇA ================= -->
+<section id="seguranca" class="rel">
+  <div class="wrap">
+    <div class="section-label-index">04</div>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Área 2.1 · Segurança Pública e Justiça</div>
+        <h2>A maior área do consolidado — e a mais distribuída entre unidades gestoras.</h2>
+      </div>
+      <div class="section-total"><div class="v" id="seg-total">–</div><div class="l">empenhado no período</div></div>
+    </div>
+    <p class="lede">Entre Educação, Saúde e Segurança, esta última é a única com investimento pesado e relativamente equilibrado entre Obra, Reforma, Equipamentos e TIC's — sinal de uma frente mais ampla de atuação, da construção de unidades prisionais a rádios digitais. A Secretaria da Segurança Pública lidera o ranking de unidades gestoras, seguida da Secretaria da Justiça e Direitos Humanos.</p>
+
+    <div class="delivery-grid" id="seg-delivery"></div>
+
+    <div class="chart-grid" style="grid-template-columns:1fr;max-width:640px;">
+      <div class="chart-card">
+        <div class="chart-title">Empenhado por categoria</div>
+        <div class="chart-wrap" style="height:300px;"><canvas id="chart-seg-cat"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-title" style="margin-top:44px;">Maiores contratos identificados</div>
+    <div class="ledger-list" id="seg-contracts"></div>
+
+    <div class="chart-title" style="margin-top:44px;">Frota — detalhamento de veículos adquiridos</div>
+    <table class="vtable">
+      <thead><tr><th>Descrição</th><th>Unidade gestora</th><th>Exercício</th><th style="text-align:right;">Empenhado</th></tr></thead>
+      <tbody id="veiculos-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= METODOLOGIA ================= -->
+<footer id="metodologia">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-col" style="max-width:420px;">
+        <div class="eyebrow">Metodologia</div>
+        <p style="margin-top:14px;">Os valores representam o total <strong>empenhado</strong> — a primeira etapa da despesa pública, em que o governo reserva o recurso para uma obrigação específica, e não necessariamente o valor já pago ou liquidado. Registros marcados como "sem contrato" correspondem a despesas sem número de contrato/SIAFE vinculado na base de origem. Categorias e áreas seguem a classificação original das tabelas dinâmicas consolidadas. Linha de total pré-calculada nas planilhas de origem foi desconsiderada nos somatórios acima para evitar dupla contagem.</p>
+        <p style="margin-top:14px;">A base de Pavimentação não traz exercício (ano) nem valores liquidado/pago por linha, por isso entra nos totais gerais e no ranking comparativo do topo da página, mas não nos gráficos que dependem de categoria compartilhada ou evolução anual.</p>
+        <p style="margin-top:14px;">Os gráficos de <strong>evolução anual</strong> por área foram removidos desta versão: 2026 ainda não terminou, e comparar um exercício fechado com um em andamento distorce a leitura de tendência. Em seu lugar, cada área traz o comparativo por unidade gestora.</p>
+      </div>
+      <div class="foot-col">
+        <div class="eyebrow">Bases utilizadas</div>
+        <ul class="src-list">
+          <li>Educação — 154 linhas · 3 UGs</li>
+          <li>Saúde — 468 linhas · 8 UGs</li>
+          <li>Segurança — 390 linhas · 16 UGs</li>
+          <li>Detalhamento de veículos — 27 linhas</li>
+          <li>Pavimentação — 2.686 linhas · 21 UGs</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:40px;font-size:11.5px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;">Consolidação Pró-Piauí · Exercícios 2023–2026 · Documento gerado a partir de planilha de origem fornecida.</p>
+  </div>
+</footer>
+
+<script src="js/dados.js"></script>
+<script src="js/graficos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
